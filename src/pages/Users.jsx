@@ -9,7 +9,6 @@ export default function Users(){
   const onUserSelected = (userId) => {
     if(!userId) return;
     navigate(`/user/${userId}/view`)
-    console.log(userId);
   }
   return (
     <div>
