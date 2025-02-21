@@ -1,18 +1,27 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
+import axios from 'axios';
 
 const UsersContext = createContext();
 
 function Provider({children}){
-  const users = [{
-    name: 'Clare Hughes',
-    job: "Lawyer",
-    country: "Colombia",
-    age: "22",
-    net_worth: "1800"
-  }];
+  const [users, setUsers] = useState([]);
+  const [isLoadingUsers, setIsLoadingUsers] = useState(true);
+
+  const fetchUsers = async ()  => {
+    try {
+      const respose  = await axios.get("https://jsonplaceholder.org/users");
+      setUsers(respose.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoadingUsers(false);
+    }
+  }
 
   const valueToShare = {
-    users
+    users,
+    fetchUsers,
+    isLoadingUsers
   }
 
   return (

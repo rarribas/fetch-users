@@ -1,0 +1,21 @@
+.list{
+  display: flex;
+  flex-wrap: wrap;
+
+  li {
+    width: 20%;
+    padding: 12px;
+    margin: 0 12px 12px 0px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+    border: 1px solid #d9d9d9;
+    cursor: pointer;
+
+    &:hover{
+      box-shadow: -2px 4px 4px 0 rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  button {
+    width: auto;
+  }
+}
