@@ -9,7 +9,6 @@ export default function UserItem(){
   let params = useParams();
   const editableUser = users.find((user) => user.id === Number(params.id));
   // TODO: Render not found page if not found
-  console.log(editableUser);
   return ( isLoadingUsers ? <h1> Loading ...</h1> :
     <div className={styles['user-item']}>
       <header>
