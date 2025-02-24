@@ -3,7 +3,7 @@ import Button from "./Button";
 import styles from "./Form.module.scss";
 
 // eslint-disable-next-line react/prop-types
-const Form = forwardRef(({ onFormSubmit, children }, ref) => {
+const Form = forwardRef(({ onFormSubmit, children, buttonText = "Submit" }, ref) => {
   const [isSaving, setIsSaving] = useState(false);
 
   const afterSubmit = (ev) => {
@@ -17,7 +17,7 @@ const Form = forwardRef(({ onFormSubmit, children }, ref) => {
       <div>{children}</div>
       <div>
         <Button
-          text="Submit"
+          text={buttonText}
           type="submit"
           disabled={isSaving}
           onClick={() => setIsSaving(true)}
