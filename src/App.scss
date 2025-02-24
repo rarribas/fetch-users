@@ -58,3 +58,12 @@ label,
     font-family: 'Open Sans', sans-serif;
     margin-bottom: 8px;
   }
+
+  a {
+    color: #01818d;
+    text-decoration: none;
+
+    &:hover{
+      text-decoration: underline;
+    }
+  }

@@ -1,4 +1,4 @@
-import './App.css'
+import './App.scss'
 import { useContext, useEffect } from "react";
 import UsersContext from "./context/users"
 import { Routes, Route } from "react-router";
