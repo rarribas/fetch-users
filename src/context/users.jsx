@@ -18,9 +18,27 @@ function Provider({children}){
     }
   }
 
+  const addUser = (userItem) => {
+    const newUser = {
+      id: users[users.length - 1].id + 1,
+      firstname: userItem.firstname,
+      lastname: userItem.lastname,
+      email: userItem.email,
+      birthDate: userItem.birthdate,
+      company:{name: userItem.company, catchPhrase: '-', bs: '-'},
+      address: {street: userItem.address, city: userItem.city},
+    }
+
+    setUsers([
+      ...users,
+      newUser
+    ])
+  }
+
   const valueToShare = {
     users,
     fetchUsers,
+    addUser,
     isLoadingUsers
   }
 

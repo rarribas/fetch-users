@@ -11,7 +11,7 @@ export const inputElements = [{
   type: "email",
   text: "Email",
 },{
-  name: "birthDate",
+  name: "birthdate",
   type: "date",
   text: "Birth Date",
 },{
@@ -23,7 +23,7 @@ export const inputElements = [{
   type: "text",
   text: "Address",
 },{
-  name: "country",
+  name: "city",
   type: "text",
-  text: "Country",
+  text: "City",
 }];
