@@ -35,10 +35,37 @@ function Provider({children}){
     ])
   }
 
+  const editUser = (userItem) => {
+    const usersToUpdate = users.map((user) => {
+      if(user.id === userItem.id){
+        return{
+          ...user,
+          birthDate: userItem.birthdate,
+          email: userItem.email,
+          firstname: userItem.firstname,
+          lastname: userItem.lastname,
+          company: {
+            ...user.company,
+            name: userItem.company
+          },
+          address: {
+            ...user.address,
+            street: userItem.street,
+            city: userItem.city
+          },
+        }
+      }
+      return user;
+    })
+
+    setUsers(usersToUpdate);
+  }
+
   const valueToShare = {
     users,
     fetchUsers,
     addUser,
+    editUser,
     isLoadingUsers
   }
 
