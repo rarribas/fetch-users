@@ -26,7 +26,7 @@ function Provider({children}){
       email: userItem.email,
       birthDate: userItem.birthdate,
       company:{name: userItem.company, catchPhrase: '-', bs: '-'},
-      address: {street: userItem.address, city: userItem.city},
+      address: {street: userItem.street, city: userItem.city},
     }
 
     setUsers([
