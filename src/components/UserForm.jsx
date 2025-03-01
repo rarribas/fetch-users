@@ -15,7 +15,7 @@ export default function UserForm({editableUser, afterFormSubmit}){
     birthdate: editableUser?.birthDate || '',
     company: editableUser?.company.name || '',
   });
-
+  const [submitStatus, setSubmitStatus] = useState(null);
   const {isValidData, isValidField } = useFormValidation();
   const { editUser, addUser } = useContext(UsersContext);
 
@@ -29,7 +29,14 @@ export default function UserForm({editableUser, afterFormSubmit}){
       birthdate: editableUser?.birthDate || '',
       company: editableUser?.company.name || '',
     })
-  },[editableUser])
+  },[editableUser]);
+
+  useEffect(() => {
+    if(submitStatus === "success"){ 
+      const timer = setTimeout(() => setSubmitStatus(null), 5000);
+      return () => clearTimeout(timer);
+    }
+  },[submitStatus]);
 
   const resetForm = () => {
     setEditableUserValue({
@@ -69,7 +76,7 @@ export default function UserForm({editableUser, afterFormSubmit}){
             value={editableUserValue[input.name]}
             onChange={(ev) => onInputChange(ev, input.name)}
           />
-          {!isValidField(input.name) && <p>Cannot be empty</p>}
+          {!isValidField(input.name) && getMessage(`${input.text} cannot be empty`, "error")}
         </div>
       )
     })
@@ -79,7 +86,11 @@ export default function UserForm({editableUser, afterFormSubmit}){
     ev.preventDefault();
 
     const isValid = isValidData(editableUserValue);
-    if(!isValid) return false;
+    console.log(isValid, "IS VALID");
+    if(!isValid){
+      setSubmitStatus("error");
+      return false;
+    } 
 
     const userItem = {
       ...(editableUser && { id: editableUser.id }),
@@ -99,15 +110,19 @@ export default function UserForm({editableUser, afterFormSubmit}){
     }
     
     resetForm();
+    setSubmitStatus("success");
     if(afterFormSubmit) afterFormSubmit();
   };
 
   return (
-    <Form 
-      onFormSubmit={onFormSubmit} 
-      buttonText={editableUser ? 'Edit User' : 'Add User'}>
-      {getInputs()}
-    </Form>
+    <>
+      <Form 
+        onFormSubmit={onFormSubmit} 
+        buttonText={editableUser ? 'Edit User' : 'Add User'}>
+        {getInputs()}
+      </Form>
+      {submitStatus === 'success' && getMessage("Success! The user has been added", "success")}
+    </>
   )
 
 }
