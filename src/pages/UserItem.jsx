@@ -15,7 +15,6 @@ export default function UserItem(){
 
   useEffect(() => {
     if (!editableUser && !isLoadingUsers) {
-      console.error("User not found, redirecting...");
       navigate("/");
     }
   }, [editableUser, isLoadingUsers, navigate]);
