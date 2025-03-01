@@ -86,7 +86,6 @@ export default function UserForm({editableUser, afterFormSubmit}){
     ev.preventDefault();
 
     const isValid = isValidData(editableUserValue);
-    console.log(isValid, "IS VALID");
     if(!isValid){
       setSubmitStatus("error");
       return false;

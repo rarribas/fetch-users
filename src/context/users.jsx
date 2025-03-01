@@ -61,11 +61,17 @@ function Provider({children}){
     setUsers(usersToUpdate);
   }
 
+  const deleteUser = (userItem) => {
+    const filteredUsers = users.filter((user) => user.id !== userItem.id);
+    setUsers(filteredUsers);
+  }
+
   const valueToShare = {
     users,
     fetchUsers,
     addUser,
     editUser,
+    deleteUser,
     isLoadingUsers
   }
 

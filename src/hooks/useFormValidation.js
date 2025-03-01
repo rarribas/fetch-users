@@ -5,6 +5,7 @@ export function useFormValidation() {
 
   const getEmptyValues = (formElements) => {
     return Object.entries(formElements)
+      // eslint-disable-next-line no-unused-vars
       .filter(([_, value]) => value === '') 
       .map(([key]) => key);
   }
@@ -17,7 +18,6 @@ export function useFormValidation() {
 
   const isValidData = (formElements) => {
     const emptyElements = getEmptyValues(formElements); 
-    console.log(emptyElements, "EMPTY VALUES");
     if(emptyElements.length > 0){
       setFormErrors(emptyElements);
       return false;

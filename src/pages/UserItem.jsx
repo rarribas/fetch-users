@@ -1,5 +1,5 @@
-import {useContext, useState} from 'react';
-import { useParams } from "react-router";
+import {useContext, useState, useEffect} from 'react';
+import { useParams, useNavigate } from "react-router";
 import UsersContext from "../context/users";
 import styles from './UserItem.module.scss';
 import Button from '../components/Button';
@@ -8,12 +8,27 @@ import UserForm from '../components/UserForm';
 
 export default function UserItem(){
   const [showModal, setShowModal] = useState(false);
-  const { users, isLoadingUsers } = useContext(UsersContext);
+  const { users, isLoadingUsers, deleteUser } = useContext(UsersContext);
   let params = useParams();
+  const navigate = useNavigate();
   const editableUser = users.find((user) => user.id === Number(params.id));
 
-  // TODO: Render not found page if not found
-  return ( isLoadingUsers ? <h1> Loading ...</h1> :
+  useEffect(() => {
+    if (!editableUser && !isLoadingUsers) {
+      console.error("User not found, redirecting...");
+      navigate("/");
+    }
+  }, [editableUser, isLoadingUsers, navigate]);
+
+  if(isLoadingUsers){
+    return <h1>Loading ...</h1>
+  }
+
+  if(!editableUser){
+    return null;
+  }
+
+  return (
     <div className={styles['user-item']}>
       <header>
         <h1>{editableUser.firstname} {editableUser.lastname}</h1>
@@ -26,7 +41,12 @@ export default function UserItem(){
       </div>
       <div className={styles['user-item-footer']}> 
         <Button onButtonClick={() => setShowModal(true)} text='Edit' type='button'></Button>
-        <Button text='Delete' variant='danger' type='button'></Button>
+        <Button 
+          onButtonClick={() => deleteUser(editableUser)}
+          text='Delete' 
+          variant='danger' 
+          type='button'
+        />
       </div>
       <Modal showModal={showModal} onModalClosed={() => setShowModal(false)}>
         <UserForm 
