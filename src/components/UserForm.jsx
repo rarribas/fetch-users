@@ -3,6 +3,7 @@ import { inputElements } from "../data/inputElements";
 import { useFormValidation } from "../hooks/useFormValidation";
 import Form from '../components/Form';
 import UsersContext from "../context/users";
+import FormMessage from "../components/FormMessage";
 
 export default function UserForm({editableUser, afterFormSubmit}){
   const [editableUserValue, setEditableUserValue] = useState({
@@ -41,6 +42,10 @@ export default function UserForm({editableUser, afterFormSubmit}){
       company: '',
     }) 
   }
+
+  const getMessage = (message, variant) => {
+    return <FormMessage  message={message} variant={variant}/>
+  };
 
   const onInputChange = (ev, inputName) => {
 
@@ -93,7 +98,6 @@ export default function UserForm({editableUser, afterFormSubmit}){
       addUser(userItem);
     }
     
-    console.log("RESET?")
     resetForm();
     if(afterFormSubmit) afterFormSubmit();
   };

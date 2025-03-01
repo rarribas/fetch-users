@@ -4,11 +4,9 @@ export function useFormValidation() {
   const [formErrors, setFormErrors] = useState([]);
 
   const getEmptyValues = (formElements) => {
-    
-    const formElementsArray = Array.from(formElements); // Convert HTMLFormControlsCollection to an array
-
-    return formElementsArray.filter((element) => element.name && element.value.trim() === '')
-      .map((element) => element.name);
+    return Object.entries(formElements).map(([key, value]) => { 
+      if (value === '') return key
+    });
   }
 
   const isValidField = (inputName) => {
@@ -18,7 +16,7 @@ export function useFormValidation() {
 
   const isValidData = (formElements) => {
     const emptyElements = getEmptyValues(formElements); 
-
+    console.log(emptyElements);
     if(emptyElements.length > 0){
       setFormErrors(emptyElements);
       return false;
