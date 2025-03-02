@@ -1,16 +1,24 @@
 import { createContext, useState } from "react";
 import axios from 'axios';
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const UsersContext = createContext();
-
+ 
 function Provider({children}){
   const [users, setUsers] = useState([]);
   const [isLoadingUsers, setIsLoadingUsers] = useState(true);
+  const {getItem,setItem} = useLocalStorage('users');
 
   const fetchUsers = async ()  => {
+    const savedUsers = getItem();
+    if (savedUsers){
+      setIsLoadingUsers(false);
+      return setUsers(savedUsers);
+    }
     try {
       const respose  = await axios.get("https://jsonplaceholder.org/users");
       setUsers(respose.data);
+      setItem(respose.data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -29,10 +37,13 @@ function Provider({children}){
       address: {street: userItem.street, city: userItem.city},
     }
 
-    setUsers([
+    const userToAdd = [
       ...users,
       newUser
-    ])
+    ];
+
+    setUsers(userToAdd)
+    setItem(userToAdd);
   }
 
   const editUser = (userItem) => {
@@ -59,11 +70,13 @@ function Provider({children}){
     })
 
     setUsers(usersToUpdate);
+    setItem(usersToUpdate);
   }
 
   const deleteUser = (userItem) => {
     const filteredUsers = users.filter((user) => user.id !== userItem.id);
     setUsers(filteredUsers);
+    setItem(filteredUsers);
   }
 
   const valueToShare = {
