@@ -11,6 +11,7 @@ export default function Users(){
     if(!userId) return;
     navigate(`/user/${userId}/view`)
   }
+  
   return (
     <div>
       <header>

@@ -39,13 +39,23 @@ export default function UserItem(){
         <p><span>Company:</span> {editableUser.company?.name}</p>
       </div>
       <div className={styles['user-item-footer']}> 
-        <Button onButtonClick={() => setShowModal(true)} text='Edit' type='button'></Button>
-        <Button 
-          onButtonClick={() => deleteUser(editableUser)}
-          text='Delete' 
-          variant='danger' 
-          type='button'
-        />
+          <Button 
+            onButtonClick={() => setShowModal(true)} 
+            text='Edit' 
+            type='button'
+            variant='success'
+          />
+          <Button 
+            onButtonClick={() => deleteUser(editableUser)}
+            text='Delete' 
+            variant='danger' 
+            type='button'
+          />        
+          <Button 
+            onButtonClick={() => navigate('/')}
+            text='Back to List' 
+            type='button'
+          />
       </div>
       <Modal showModal={showModal} onModalClosed={() => setShowModal(false)}>
         <UserForm 

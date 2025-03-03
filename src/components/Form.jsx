@@ -20,6 +20,7 @@ const Form = forwardRef(({ onFormSubmit, children, buttonText = "Submit" }, ref)
           text={buttonText}
           type="submit"
           disabled={isSaving}
+          variant='success'
           onClick={() => setIsSaving(true)}
         />
       </div>
