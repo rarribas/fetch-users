@@ -2,9 +2,8 @@ import './App.scss'
 import { useContext, useEffect } from "react";
 import UsersContext from "./context/users"
 import { Routes, Route } from "react-router";
-import AddUser from './pages/AddUser';
-import UserItem from './pages/UserItem';
-import Users from './pages/Users';
+import { AppRoutes } from './data/routes';
+
 function App() {
   const { fetchUsers } = useContext(UsersContext);
 
@@ -13,13 +12,18 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // TODO: Add something similar as for the routes than for the getInputs
-  // Create a file with all the routes and loop through them.
+  const getRoutes = () =>
+    AppRoutes.map((appRoute) =>
+      appRoute.mainRoute ? (
+        <Route key={appRoute.path} index element={appRoute.component} />
+      ) : (
+        <Route key={appRoute.path} path={appRoute.path} element={appRoute.component} />
+      )
+    );
+
   return (
     <Routes>
-      <Route index element={<Users/>}></Route>
-      <Route path="add-user" element={<AddUser/>}></Route>
-      <Route path="user/:id/view" element={<UserItem/>}></Route>
+     {getRoutes()}
     </Routes>
   )
 }
