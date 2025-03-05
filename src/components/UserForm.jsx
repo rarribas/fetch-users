@@ -110,6 +110,7 @@ export default function UserForm({editableUser, afterFormSubmit}){
     
     resetForm();
     setSubmitStatus("success");
+    // TODO: rename this to navigateTo, or move to somewhere
     if(afterFormSubmit) afterFormSubmit();
   };
 

@@ -8,10 +8,14 @@ export default function Users(){
   const navigate = useNavigate();
 
   const onUserSelected = (userId) => {
+    // TODO: Add not found page
     if(!userId) return;
     navigate(`/user/${userId}/view`)
   }
   
+  // TODO: Move actions prop to be rendered inside UserList
+  // TODO: On userSelected belongs to UserList component
+  // The purpose of this component should be to render
   return (
     <div>
       <header>

@@ -7,10 +7,12 @@
   border: 1px solid #2c2c2c;
   border-radius: 4px;
   font-family: 'Open Sans', sans-serif;
+  text-align: center;
   cursor: pointer;
-
+  
   &:hover{
     background-color: #8b9495;
+    text-decoration: none;
   }
 
   &[data-variant="danger"]{

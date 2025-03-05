@@ -13,6 +13,8 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // TODO: Add something similar as for the routes than for the getInputs
+  // Create a file with all the routes and loop through them.
   return (
     <Routes>
       <Route index element={<Users/>}></Route>
