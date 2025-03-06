@@ -5,7 +5,7 @@ import Form from '../components/Form';
 import UsersContext from "../context/users";
 import FormMessage from "../components/FormMessage";
 
-export default function UserForm({editableUser, afterFormSubmit}){
+export default function UserForm({editableUser, onSuccessAction}){
   const [editableUserValue, setEditableUserValue] = useState({
     firstname: editableUser?.firstname || '',
     lastname: editableUser?.lastname || '',
@@ -111,7 +111,7 @@ export default function UserForm({editableUser, afterFormSubmit}){
     resetForm();
     setSubmitStatus("success");
     // TODO: rename this to navigateTo, or move to somewhere
-    if(afterFormSubmit) afterFormSubmit();
+    if(onSuccessAction) onSuccessAction();
   };
 
   return (

@@ -58,7 +58,7 @@ export default function UserItem(){
       </div>
       <Modal showModal={showModal} onModalClosed={() => setShowModal(false)}>
         <UserForm 
-          afterFormSubmit={() => setShowModal(false)} 
+          onSuccessAction={() => setShowModal(false)} 
           editableUser={editableUser}
         />
       </Modal>
