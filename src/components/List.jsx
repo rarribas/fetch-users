@@ -15,6 +15,6 @@ export default function List({listData}){
 
   return <ul className={styles['list']}>
     {getListItems()}
-    <Link className='add-button' to="/add-user"> Add New User</Link>
+    <Link to="/add-user"> Add New User</Link>
   </ul>
 }

@@ -9,15 +9,16 @@ import UserForm from '../components/UserForm';
 export default function UserItem(){
   const [showModal, setShowModal] = useState(false);
   const { users, isLoadingUsers, deleteUser } = useContext(UsersContext);
+  const [deleted, setDeleted] = useState(false);
   let params = useParams();
   const navigate = useNavigate();
   const editableUser = users.find((user) => user.id === Number(params.id));
 
   useEffect(() => {
-    if (!editableUser && !isLoadingUsers) {
-      navigate("/");
+    if (!editableUser && !isLoadingUsers && !deleted) {
+      navigate("/not-found");
     }
-  }, [editableUser, isLoadingUsers, navigate]);
+  }, [editableUser, isLoadingUsers, deleted, navigate]);
 
   if(isLoadingUsers){
     return <h1>Loading ...</h1>
@@ -25,6 +26,12 @@ export default function UserItem(){
 
   if(!editableUser){
     return null;
+  }
+
+  const afterDelete = () => {
+    setDeleted(true);
+    deleteUser(editableUser)
+    navigate("/");
   }
 
   return (
@@ -46,7 +53,7 @@ export default function UserItem(){
           variant='success'
         />
         <Button 
-          onButtonClick={() => deleteUser(editableUser)}
+          onButtonClick={afterDelete}
           text='Delete' 
           variant='danger' 
           type='button'
@@ -58,7 +65,7 @@ export default function UserItem(){
       </div>
       <Modal showModal={showModal} onModalClosed={() => setShowModal(false)}>
         <UserForm 
-          onSuccessAction={() => setShowModal(false)} 
+          afterFormSubmit={() => setShowModal(false)} 
           editableUser={editableUser}
         />
       </Modal>
