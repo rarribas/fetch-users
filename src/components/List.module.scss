@@ -2,7 +2,8 @@
   display: flex;
   flex-wrap: wrap;
 
-  li, a {
+  li,
+  > a{
     width: 20%;
     padding: 12px;
     margin: 0 12px 12px 0px;
@@ -15,7 +16,11 @@
     }
   }
 
-  a {
+  li a:hover{
+    text-decoration: none;
+  }
+
+  > a {
     display: flex;
     align-items: center;
     justify-content: center;
