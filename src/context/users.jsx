@@ -6,6 +6,7 @@ const UsersContext = createContext();
  
 function Provider({children}){
   const [users, setUsers] = useState([]);
+  const [isErrorFetching, setIsErrorFetching] = useState(false);
   const [isLoadingUsers, setIsLoadingUsers] = useState(true);
   const {getItem,setItem} = useLocalStorage('users');
 
@@ -19,7 +20,9 @@ function Provider({children}){
       const respose  = await axios.get("https://jsonplaceholder.org/users");
       setUsers(respose.data);
       setItem(respose.data);
+      setIsErrorFetching(false);
     } catch (error) {
+      setIsErrorFetching(true);
       console.error(error);
     } finally {
       setIsLoadingUsers(false);
@@ -85,7 +88,8 @@ function Provider({children}){
     addUser,
     editUser,
     deleteUser,
-    isLoadingUsers
+    isLoadingUsers,
+    isErrorFetching,
   }
 
   return (

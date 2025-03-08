@@ -2,8 +2,9 @@ import Users from '../pages/Users';
 import AddUser from '../pages/AddUser';
 import UserItem from '../pages/UserItem';
 import PageNotFound from '../pages/PageNotFound';
+import { Route } from "react-router";
 
-export const AppRoutes = [{
+const AppRoutes = [{
   mainRoute: true,
   path: "/",
   component: <Users/>,
@@ -24,3 +25,12 @@ export const AppRoutes = [{
   path: "*",
   component: <PageNotFound/>,
 }];
+
+export const getRoutes = () =>
+  AppRoutes.map((appRoute) =>
+    appRoute.mainRoute ? (
+      <Route key={appRoute.path} index element={appRoute.component} />
+    ) : (
+      <Route key={appRoute.path} path={appRoute.path} element={appRoute.component} />
+    )
+  );
