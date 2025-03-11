@@ -1,9 +1,9 @@
 import {useContext, useState, useEffect} from 'react';
 import { inputElements } from "../data/inputElements";
 import { useFormValidation } from "../hooks/useFormValidation";
-import Form from '../components/Form';
+import Form from './Form';
 import UsersContext from "../context/users";
-import FormMessage from "../components/FormMessage";
+import FormMessage from "./FormMessage";
 
 export default function UserForm({editableUser, afterFormSubmit}){
   const [editableUserValue, setEditableUserValue] = useState({

@@ -1,11 +1,12 @@
 import { createContext, useState } from "react";
 import axios from 'axios';
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import {UserI, SimpleUserI} from '../types/user';
 
 const UsersContext = createContext();
  
 function Provider({children}){
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<UserI[]>([]); 
   const [isErrorFetching, setIsErrorFetching] = useState(false);
   const [isLoadingUsers, setIsLoadingUsers] = useState(true);
   const {getItem,setItem} = useLocalStorage('users');
@@ -29,9 +30,10 @@ function Provider({children}){
     }
   }
 
-  const addUser = (userItem) => {
-    const newUser = {
-      id: users[users.length - 1].id + 1,
+  const addUser = (userItem:SimpleUserI) => {
+    const lastUser = users.length > 0 ? users[users.length - 1] : undefined;
+    const newUser:UserI = {
+      id: lastUser && lastUser.id ? lastUser.id + 1 : 0,
       firstname: userItem.firstname,
       lastname: userItem.lastname,
       email: userItem.email,
@@ -49,7 +51,7 @@ function Provider({children}){
     setItem(userToAdd);
   }
 
-  const editUser = (userItem) => {
+  const editUser = (userItem:SimpleUserI) => {
     const usersToUpdate = users.map((user) => {
       if(user.id === userItem.id){
         return{
@@ -76,7 +78,7 @@ function Provider({children}){
     setItem(usersToUpdate);
   }
 
-  const deleteUser = (userItem) => {
+  const deleteUser = (userItem:SimpleUserI) => {
     const filteredUsers = users.filter((user) => user.id !== userItem.id);
     setUsers(filteredUsers);
     setItem(filteredUsers);

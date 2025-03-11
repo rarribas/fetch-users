@@ -1,4 +1,10 @@
-export const inputElements = [{
+export type InputType = {
+  name: string,
+  type: 'text' | 'email' | 'date',
+  text: string,
+}
+
+export const inputElements:InputType[] = [{
   name: "firstname",
   type: "text",
   text: "First Name",
