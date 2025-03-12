@@ -1,14 +1,29 @@
-import { createContext, useState } from "react";
+import { createContext, useState, ReactNode } from "react";
 import axios from 'axios';
+// TODO: COnvert this to TS file
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import {UserI, SimpleUserI} from '../types/user';
 
-const UsersContext = createContext();
+interface ProviderProps {
+  children: ReactNode;
+}
+
+interface UsersContextType {
+  users: UserI[];
+  fetchUsers: () => void;
+  addUser:(userItem:SimpleUserI) => void;
+  editUser:(userItem:SimpleUserI) => void;
+  deleteUser:(userItem:SimpleUserI) => void;
+  isLoadingUsers: boolean;
+  isErrorFetching: boolean;
+}
+
+const UsersContext = createContext<UsersContextType | null>(null);
  
-function Provider({children}){
+function Provider({children}:ProviderProps){
   const [users, setUsers] = useState<UserI[]>([]); 
-  const [isErrorFetching, setIsErrorFetching] = useState(false);
-  const [isLoadingUsers, setIsLoadingUsers] = useState(true);
+  const [isErrorFetching, setIsErrorFetching] = useState<boolean>(false);
+  const [isLoadingUsers, setIsLoadingUsers] = useState<boolean>(true);
   const {getItem,setItem} = useLocalStorage('users');
 
   const fetchUsers = async ()  => {
@@ -84,7 +99,7 @@ function Provider({children}){
     setItem(filteredUsers);
   }
 
-  const valueToShare = {
+  const valueToShare:UsersContextType = {
     users,
     fetchUsers,
     addUser,
