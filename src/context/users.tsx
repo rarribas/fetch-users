@@ -1,6 +1,5 @@
 import { createContext, useState, ReactNode } from "react";
 import axios from 'axios';
-// TODO: COnvert this to TS file
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import {UserI, SimpleUserI} from '../types/user';
 

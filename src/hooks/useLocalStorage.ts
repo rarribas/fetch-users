@@ -1,5 +1,7 @@
-export function useLocalStorage(key){
-  const setItem = (value) => {
+export function useLocalStorage(key:string){
+  
+  // Make type generic for flexibiltiy
+  const setItem = <T>(value: T) => {
     // Some browser does not support local storage or maybe
     // there is not enough space available
     try {
@@ -21,5 +23,5 @@ export function useLocalStorage(key){
   return {
     setItem,
     getItem,
-  }
+  };
 }
