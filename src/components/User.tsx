@@ -1,5 +1,10 @@
-/* eslint-disable react/prop-types */
-export default function User({user}){
+import { UserI } from '../types/user';
+
+interface UserProps {
+  user: UserI
+}
+
+export default function User({user}:UserProps){
   return (
     <>
        <h4>{`${user.firstname} ${user.lastname}`}</h4>

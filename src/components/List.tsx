@@ -1,10 +1,16 @@
 import styles from './List.module.scss';
 import User from './User';
+import { UserI } from '../types/user';
 import { Link } from 'react-router';
-export default function List({listData}){
 
+interface ListProps {
+  listData: UserI[]
+}
+
+export default function List({listData}:ListProps){
+  
   const getListItems = () =>{
-    return listData.map((listItem)=>{
+    return listData.map((listItem: UserI)=>{
       return <li key={listItem.id}>
         <Link to={`/user/${listItem.id}/view`}>
           <User user={listItem}/>
