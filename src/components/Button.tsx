@@ -9,7 +9,8 @@ export interface ButtonI {
   type?: ButtonType,
   variant?: ButtonVariantType
   onButtonClick?: () => void,
-  navigateTo: string,
+  navigateTo?: string,
+  disabled?: boolean,
 }
 
 export default function Button({
@@ -17,6 +18,7 @@ export default function Button({
     type, 
     variant, 
     onButtonClick, 
+    disabled,
     navigateTo
   }:ButtonI) {
   return navigateTo ? (
@@ -30,6 +32,7 @@ export default function Button({
     <button 
       type={type} 
       data-variant={variant} 
+      disabled={disabled}
       className={styles['button']}
       onClick={onButtonClick} 
     >

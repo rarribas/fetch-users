@@ -1,12 +1,21 @@
-import { useState, forwardRef } from "react";
+import { useState, forwardRef, ReactNode } from "react";
 import Button from "./Button";
 import styles from "./Form.module.scss";
 
-// eslint-disable-next-line react/prop-types
-const Form = forwardRef(({ onFormSubmit, children, buttonText = "Submit" }, ref) => {
+export interface FormI {
+  children: ReactNode,
+  onFormSubmit: (ev: React.FormEvent<HTMLFormElement>) => void,
+  buttonText?: string,
+}
+
+const Form = forwardRef<HTMLFormElement, FormI>(({
+    onFormSubmit, 
+    children, 
+    buttonText = "Submit" 
+  }:FormI, ref) => {
   const [isSaving, setIsSaving] = useState(false);
 
-  const afterSubmit = (ev) => {
+  const afterSubmit = (ev: React.FormEvent<HTMLFormElement>): void => {
     ev.preventDefault();
     onFormSubmit(ev); 
     setIsSaving(false);
@@ -21,7 +30,7 @@ const Form = forwardRef(({ onFormSubmit, children, buttonText = "Submit" }, ref)
           type="submit"
           disabled={isSaving}
           variant='success'
-          onClick={() => setIsSaving(true)}
+          onButtonClick={() => setIsSaving(true)}
         />
       </div>
     </form>
