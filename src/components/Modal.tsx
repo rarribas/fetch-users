@@ -1,8 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import styles from './Modal.module.scss';
 
-export default function Modal({ showModal, onModalClosed, children }) {
-  const [show, setShow] = useState(showModal);
+export interface ModalI {
+  showModal: boolean,
+  onModalClosed: () => void,
+  children: ReactNode,
+}
+
+export default function Modal({ 
+  showModal, 
+  onModalClosed, 
+  children 
+}:ModalI) {
+  const [show, setShow] = useState<boolean>(showModal);
 
   useEffect(() => {
     setShow(showModal);
@@ -11,7 +21,6 @@ export default function Modal({ showModal, onModalClosed, children }) {
   const onOverlayClicked = () => {
     setShow(false);
     onModalClosed();
-    console.log("overlay clicked");
   }
 
   return (
