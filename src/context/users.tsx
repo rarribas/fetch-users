@@ -12,7 +12,7 @@ export interface UsersContextType {
   fetchUsers: () => void;
   addUser:(userItem:SimpleUserI) => void;
   editUser:(userItem:SimpleUserI) => void;
-  deleteUser:(userItem:SimpleUserI) => void;
+  deleteUser:(userItem:UserI) => void;
   isLoadingUsers: boolean;
   isErrorFetching: boolean;
 }
@@ -92,7 +92,7 @@ function Provider({children}:ProviderProps){
     setItem(usersToUpdate);
   }
 
-  const deleteUser = (userItem:SimpleUserI) => {
+  const deleteUser = (userItem:UserI) => {
     const filteredUsers = users.filter((user) => user.id !== userItem.id);
     setUsers(filteredUsers);
     setItem(filteredUsers);

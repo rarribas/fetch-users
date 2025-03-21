@@ -7,9 +7,15 @@ import Modal from '../components/Modal';
 import UserForm from '../components/UserForm';
 
 export default function UserItem(){
-  const [showModal, setShowModal] = useState(false);
-  const { users, isLoadingUsers, deleteUser } = useContext(UsersContext);
-  const [deleted, setDeleted] = useState(false);
+  const usersContext = useContext(UsersContext);
+
+  if (!usersContext) {
+    throw new Error("UsersContext must be used within a UsersProvider");
+  }
+
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const { users, isLoadingUsers, deleteUser } = usersContext;
+  const [deleted, setDeleted] = useState<boolean>(false);
   let params = useParams();
   const navigate = useNavigate();
   const editableUser = users.find((user) => user.id === Number(params.id));

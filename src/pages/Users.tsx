@@ -1,8 +1,15 @@
 import { useContext } from "react";
 import UsersContext from "../context/users";
 import UserList from '../components/List';
+
 export default function Users(){
-  const { users, isLoadingUsers, isErrorFetching } = useContext(UsersContext);
+  const usersContext = useContext(UsersContext);
+
+  if (!usersContext) {
+    throw new Error("UsersContext must be used within a UsersProvider");
+  }
+
+  const { users, isLoadingUsers, isErrorFetching } = usersContext;
  
   // The purpose of this component should be to render
   return (
