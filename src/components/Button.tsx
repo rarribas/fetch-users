@@ -9,6 +9,7 @@ export interface ButtonI {
   type?: ButtonType,
   variant?: ButtonVariantType
   onButtonClick?: () => void,
+  onClick?: () => void, 
   navigateTo?: string,
   disabled?: boolean,
 }

@@ -30,7 +30,7 @@ const Form = forwardRef<HTMLFormElement, FormI>(({
           type="submit"
           disabled={isSaving}
           variant='success'
-          onButtonClick={() => setIsSaving(true)}
+          onClick={() => setIsSaving(true)}
         />
       </div>
     </form>

@@ -5,7 +5,13 @@ import { getRoutes } from './data/routes';
 import { Routes } from "react-router";
 
 function App() {
-  const { fetchUsers } = useContext(UsersContext);
+  const usersContext = useContext(UsersContext);
+
+  if (!usersContext) {
+    throw new Error("UsersContext must be used within a UsersProvider");
+  }
+
+  const { fetchUsers } = usersContext;
 
   useEffect(() => {
     fetchUsers();

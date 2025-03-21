@@ -96,7 +96,7 @@ export default function UserForm({editableUser, afterFormSubmit}:UserFormI){
 
   const onFormSubmit = (ev:FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
-
+    
     const isValid = isValidData(editableUserValue);
     if(!isValid){
       setSubmitStatus("error");

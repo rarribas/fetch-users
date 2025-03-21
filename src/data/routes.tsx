@@ -4,7 +4,13 @@ import UserItem from '../pages/UserItem';
 import PageNotFound from '../pages/PageNotFound';
 import { Route } from "react-router";
 
-const AppRoutes = [{
+export interface AppRoutesI {
+  mainRoute: boolean;
+  path: string;
+  component: React.ReactElement;
+}
+
+const AppRoutes:AppRoutesI[] = [{
   mainRoute: true,
   path: "/",
   component: <Users/>,

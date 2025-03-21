@@ -1,6 +1,6 @@
 import styles from "./FormMessage.module.scss";
 
-type MessageVariantType = 'success' | 'error';
+export type MessageVariantType = 'success' | 'error';
 
 export interface FormMessageI{
   message: string,
