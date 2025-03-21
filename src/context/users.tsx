@@ -7,7 +7,7 @@ interface ProviderProps {
   children: ReactNode;
 }
 
-interface UsersContextType {
+export interface UsersContextType {
   users: UserI[];
   fetchUsers: () => void;
   addUser:(userItem:SimpleUserI) => void;

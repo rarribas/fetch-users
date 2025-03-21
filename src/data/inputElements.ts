@@ -1,5 +1,14 @@
+type InputNamesTypes = 
+  'firstname' | 
+  'lastname' | 
+  'email' | 
+  'birthdate' |
+  'company' |
+  'address' |
+  'city';
+
 export type InputType = {
-  name: string,
+  name: InputNamesTypes,
   type: 'text' | 'email' | 'date',
   text: string,
 }

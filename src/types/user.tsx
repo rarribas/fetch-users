@@ -24,5 +24,6 @@ export interface SimpleUserI {
   birthdate?: string;
   company?: string;
   street?: string;
+  address?: string;
   city?: string;
 }

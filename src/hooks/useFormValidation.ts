@@ -1,9 +1,10 @@
 import { useState } from "react";
+
 export function useFormValidation() {
 
-  const [formErrors, setFormErrors] = useState([]);
+  const [formErrors, setFormErrors] = useState<string[]>([]);
 
-  const getEmptyValues = (formElements) => {
+  const getEmptyValues =  <T extends Record<string, any>>(formElements: T) => {
     return Object.entries(formElements)
       // eslint-disable-next-line no-unused-vars
       .filter(([_, value]) => value === '') 
@@ -11,12 +12,13 @@ export function useFormValidation() {
   }
     
 
-  const isValidField = (inputName) => {
+  const isValidField = (inputName:string) => {
     if(formErrors.length === 0) return true;
     return !formErrors.includes(inputName);
   };
 
-  const isValidData = (formElements) => {
+  // Accepts any kind of objects with a key:string and value:any
+  const isValidData =  <T extends Record<string, any>>(formElements: T) => {
     const emptyElements = getEmptyValues(formElements); 
     if(emptyElements.length > 0){
       setFormErrors(emptyElements);

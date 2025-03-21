@@ -1,33 +1,45 @@
-import {useContext, useState, useEffect} from 'react';
+import {useContext, useState, useEffect, ChangeEvent, FormEvent} from 'react';
 import { inputElements } from "../data/inputElements";
 import { useFormValidation } from "../hooks/useFormValidation";
 import Form from './Form';
 import UsersContext from "../context/users";
-import FormMessage from "./FormMessage";
+import FormMessage, {type MessageVariantType} from "./FormMessage";
+import { UserI, SimpleUserI } from '../types/user';
 
-export default function UserForm({editableUser, afterFormSubmit}){
-  const [editableUserValue, setEditableUserValue] = useState({
+export interface UserFormI {
+  editableUser?: UserI,
+  afterFormSubmit?: () => void,
+}
+
+export default function UserForm({editableUser, afterFormSubmit}:UserFormI){
+  const [editableUserValue, setEditableUserValue] = useState<SimpleUserI>({
     firstname: editableUser?.firstname || '',
     lastname: editableUser?.lastname || '',
     email: editableUser?.email || '',
-    city: editableUser?.address.city || '',
-    address: editableUser?.address.street || '',
+    city: editableUser?.address?.city || '',
+    address: editableUser?.address?.street || '',
     birthdate: editableUser?.birthDate || '',
-    company: editableUser?.company.name || '',
+    company: editableUser?.company?.name || '',
   });
-  const [submitStatus, setSubmitStatus] = useState(null);
+  const [submitStatus, setSubmitStatus] = useState<string| null>(null);
   const {isValidData, isValidField } = useFormValidation();
-  const { editUser, addUser } = useContext(UsersContext);
+  const usersContext = useContext(UsersContext);
+
+  if (!usersContext) {
+    throw new Error("UsersContext must be used within a UsersProvider");
+  }
+
+  const { editUser, addUser } = usersContext;
 
   useEffect(() => {
     setEditableUserValue({
       firstname: editableUser?.firstname || '',
       lastname: editableUser?.lastname || '',
       email: editableUser?.email || '',
-      city: editableUser?.address.city || '',
-      address: editableUser?.address.street || '',
+      city: editableUser?.address?.city || '',
+      address: editableUser?.address?.street || '',
       birthdate: editableUser?.birthDate || '',
-      company: editableUser?.company.name || '',
+      company: editableUser?.company?.name || '',
     })
   },[editableUser]);
 
@@ -50,11 +62,11 @@ export default function UserForm({editableUser, afterFormSubmit}){
     }) 
   }
 
-  const getMessage = (message, variant) => {
+  const getMessage = (message:string, variant:MessageVariantType) => {
     return <FormMessage  message={message} variant={variant}/>
   };
 
-  const onInputChange = (ev, inputName) => {
+  const onInputChange = (ev:ChangeEvent<HTMLInputElement>, inputName:string) => {
 
     const updatedUser = {
       ... editableUserValue,
@@ -82,7 +94,7 @@ export default function UserForm({editableUser, afterFormSubmit}){
     })
   }
 
-  const onFormSubmit = (ev) => {
+  const onFormSubmit = (ev:FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
 
     const isValid = isValidData(editableUserValue);
@@ -110,7 +122,6 @@ export default function UserForm({editableUser, afterFormSubmit}){
     
     resetForm();
     setSubmitStatus("success");
-    // TODO: rename this to navigateTo, or move to somewhere
     if(afterFormSubmit) afterFormSubmit();
   };
 
