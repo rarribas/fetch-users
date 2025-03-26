@@ -29,9 +29,10 @@ function Provider({children}:ProviderProps){
     const savedUsers = getItem();
     if (savedUsers){
       setIsLoadingUsers(false);
-      return setUsers(savedUsers);
+      return setUsers(savedUsers as UserI[]);
     }
     try {
+      // TODO: Add types here
       const respose  = await axios.get("https://jsonplaceholder.org/users");
       setUsers(respose.data);
       setItem(respose.data);

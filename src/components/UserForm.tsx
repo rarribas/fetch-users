@@ -113,7 +113,7 @@ export default function UserForm({editableUser, afterFormSubmit}:UserFormI){
       birthdate: editableUserValue.birthdate,
       company: editableUserValue.company,
     };
-
+    // TODO: Practice utility types here (satisfies, record, pick, partial, enums)
     if(editableUser){
       editUser(userItem);
     }else{
